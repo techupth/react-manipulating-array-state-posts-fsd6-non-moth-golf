@@ -1,29 +1,62 @@
+import { useState } from "react";
+import Data from "../data/BlogPost";
+
 function Posts() {
+  const [isLikes, setLikes] = useState(Data.map((data) => data.likes));
+
+  function handleLikeClick(likeIndex) {
+    let newLikes = [...isLikes];
+    newLikes[likeIndex] += 1;
+    setLikes(newLikes);
+  }
+
+  function handleDislikeClick(dislikeIndex) {
+    let newLikes = [...isLikes];
+
+    if (newLikes[dislikeIndex] === 0) {
+      newLikes[dislikeIndex] = 0;
+    } else {
+      newLikes[dislikeIndex] -= 1;
+    }
+
+    setLikes(newLikes);
+  }
+
   return (
     <div class="app-wrapper">
       <h1 class="app-title">Posts</h1>
-      <div class="post-list">
-        <div class="post-item">
-          <div class="post-header">
-            <h2>Post Title #1</h2>
-            <div class="post-social-media-stats">
-              <span class="stats-topic">Likes: </span>
-              <span class="post-likes">10</span>
+      {Data.map((data, index) => {
+        return (
+          <div class="post-list">
+            <div class="post-item" key={index}>
+              <div class="post-header">
+                <h2>
+                  {data.title} #{data.id}
+                </h2>
+                <div class="post-social-media-stats">
+                  <span class="stats-topic">Likes: </span>
+                  <span class="post-likes">{isLikes[index]}</span>
+                </div>
+              </div>
+              <p class="post-content">{data.content}</p>
+              <div class="post-actions">
+                <button
+                  class="like-button"
+                  onClick={() => handleLikeClick(index)}
+                >
+                  Like
+                </button>
+                <button
+                  class="dislike-button"
+                  onClick={() => handleDislikeClick(index)}
+                >
+                  Dislike
+                </button>
+              </div>
             </div>
           </div>
-          <p class="post-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            vel turpis vestibulum, aliquet ipsum vitae, auctor risus. Morbi
-            tincidunt, leo non molestie consectetur, elit libero faucibus
-            tellus, sed fringilla tortor libero sit amet odio. Maecenas sed ante
-            condimentum mauris euismod pellentesque eu eu justo...
-          </p>
-          <div class="post-actions">
-            <button class="like-button">Like</button>
-            <button class="dislike-button">Dislike</button>
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 }

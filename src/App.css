@@ -38,6 +38,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .post-item {
@@ -62,7 +63,9 @@ body {
   margin-bottom: 30px;
 }
 
-.post-actions .like-button {
+.post-actions {
+  display: flex;
+  justify-content: space-around;
   margin-right: 30px;
 }
 
