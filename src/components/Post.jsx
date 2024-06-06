@@ -28,7 +28,9 @@ const Post = ({item}) => {
         <button
           class="dislike-button"
           onClick={() => {
-           setLike(like-1)
+            if (like > 0) {
+              setLike(like-1)
+            }
           }}
         >
           Dislike
